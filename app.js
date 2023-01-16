@@ -4,30 +4,7 @@ import cookieParser from "cookie-parser"
 
 const app = express()
 
-const originz = [
-  "https://testrender-fe.onrender.com",
-  "http://localhost:3000",
-  "http://localhost:5500",
-  "http://localhost:9999",
-  "http://127.0.0.1:3000",
-  "http://127.0.0.1:5500",
-  "http://127.0.0.1:9999",
-]
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      console.log(origin)
-      if (originz.indexOf(origin) !== -1) {
-        callback(null, true)
-      } else {
-        callback(new Error("Not allowed by CORS"))
-      }
-    },
-    methods: ["GET", "POST", "PATCH", "DELETE"],
-    credentials: true,
-  })
-)
+app.use(cors({origin: "https://testrender-fe.onrender.com",credentials: true}))
 app.use(cookieParser())
 
 app.use((req, res) => {
@@ -36,7 +13,7 @@ app.use((req, res) => {
     expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
     httpOnly: true,
     secure: true,
-    sameSite: "lax",
+    sameSite: "None",
   }
   res.cookie("cooki", "I am a horse" + Math.round(Math.random() * 10000), cookieOptions)
   res.send("potato, " + JSON.stringify(req.cookies))
