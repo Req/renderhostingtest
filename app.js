@@ -5,7 +5,15 @@ import cookieParser from "cookie-parser"
 const app = express()
 app.use(
   cors({
-    origin: "*",
+    origin: [
+        "https://testrender-fe.onrender.com/",
+        "http://localhost:3000/",
+        "http://localhost:5000/",
+        "http://localhost:9999/",
+        "http://127.0.0.1:3000/",
+        "http://127.0.0.1:5000/",
+        "http://127.0.0.1:9999/",
+    ],
     methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true,
   })
