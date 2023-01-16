@@ -3,8 +3,6 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 
 const app = express()
-
-// GLOBAL MIDDLEWARE
 app.use(
   cors({
     origin: "*",
@@ -12,11 +10,18 @@ app.use(
     credentials: true,
   })
 )
-
 app.use(cookieParser())
 
 app.use((req, res) => {
-  res.send("potato")
+  console.log(req.cookies)
+  const cookieOptions = {
+    expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+  }
+  res.cookie("cooki", "I am a horse"+Math.round(Math.random()*10000), cookieOptions)
+  res.send("potato, " + JSON.stringify(req.cookies))
 })
 
 const port = process.env.PORT || 5000
