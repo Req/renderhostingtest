@@ -1,8 +1,15 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import thing from 'express-status-monitor'
+
 
 const app = express()
+
+app.use((req,res,next)=>{ console.log(123); next(); })
+
+// Express status monitor thing
+app.use(thing());
 
 // Cookie handling test
 app.use(cors({ origin: "https://testrender-fe.onrender.com", credentials: true }))
